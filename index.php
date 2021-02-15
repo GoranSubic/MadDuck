@@ -44,6 +44,7 @@ $customer1 = new Customer('Mad', 'Duck', '123-456');
 $billCorner1 = new Bill($customer1, $shopCorner1);
 try {
     $billCorner1->addProductToBill($shopCorner1->getProducts()[0], 2);
+    $billCorner1->printBill();
 } catch (Exception $exception) {
     echo $exception->getMessage();
 }
@@ -52,6 +53,7 @@ try {
 $billCorner1 = new Bill($customer1, $shopCorner1);
 try {
     $billCorner1->addProductToBill($shopCorner1->getProducts()[0], 9);
+    $billCorner1->printBill();
 } catch (Exception $exception) {
     echo $exception->getMessage();
 }
@@ -59,6 +61,7 @@ try {
 $billPharmacy1 = new Bill($customer1, $shopPharmacy1);
 try {
     $billPharmacy1->addProductToBill($shopPharmacy1->getProducts()[0], 9);
+    $billPharmacy1->printBill();
 } catch (Exception $exception) {
     echo $exception->getMessage();
 }
@@ -66,6 +69,7 @@ try {
 $billSuper = new Bill($customer1, $shopSupermarket1);
 try {
     $billSuper->addProductToBill($shopSupermarket1->getProducts()[1], 1);
+    $billSuper->printBill();
 } catch (Exception $exception) {
     echo $exception->getMessage();
 }

@@ -9,6 +9,12 @@ class CornerShop extends Shop
 {
     private int $id;
 
+    public function __construct(string $name)
+    {
+        parent::__construct($name);
+        $this->type = 'CornerShop';
+    }
+
     /**
      * @return int
      */

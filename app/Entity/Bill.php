@@ -5,6 +5,8 @@ namespace StoreChain\Entity;
 use StoreChain\Entity\Person\Customer;
 use StoreChain\Entity\Products\Product;
 use StoreChain\Entity\Shops\Shop;
+use StoreChain\Entity\Logger;
+use Exception;
 
 class Bill
 {
@@ -98,6 +100,7 @@ class Bill
         if ($key !== true) {
             $prodQty = $product->getQuantity();
             if ($prodQty > 0 && $prodQty >= $billQty) {
+                $product->qtyBefore = $prodQty;
                 $product->setQuantity($prodQty - $billQty);
                 $this->products[] = $product;
             } else {
@@ -105,6 +108,26 @@ class Bill
             }
         } else {
             throw new \Exception('<br />Product is not on this store stock!');
+        }
+    }
+
+    public function printBill()
+    {
+        if (count($this->getProducts()) > 0) {
+            foreach ($this->getProducts() as $prod)
+            $msg = $this->shop->getType();
+            $msg .= ' - ';
+            $msg .= $prod->getType();
+            $msg .= ' - ';
+            $msg .= $prod->getPrice();
+            $msg .= ' - ';
+            $msg .= $prod->qtyBefore;
+            $msg .= ' - ';
+            $msg .= $prod->getQuantity();
+            Logger::getLogger()->writeLog($msg);
+            echo "<br />".$msg;
+        } else {
+            throw new \Exception('No products added to bill!');
         }
     }
 
