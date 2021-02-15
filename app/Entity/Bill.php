@@ -4,6 +4,7 @@ namespace StoreChain\Entity;
 
 use StoreChain\Entity\Person\Customer;
 use StoreChain\Entity\Products\Product;
+use StoreChain\Entity\Shops\Shop;
 
 class Bill
 {
@@ -12,11 +13,13 @@ class Bill
     private string $date;
     private int $year = 2000;
     private Customer $customer;
+    private Shop $shop;
     private array $products = array();
 
-    public function __construct(Customer $customer)
+    public function __construct(Customer $customer, Shop $shop)
     {
         $this->customer = $customer;
+        $this->shop = $shop;
         $this->date = date('d/m/Y');
         $this->setBillId();
     }
@@ -91,12 +94,17 @@ class Bill
 
     public function addProductToBill(Product $product, int $billQty)
     {
-        $prodQty = $product->getQuantity();
-        if ($prodQty > 0 && $prodQty >= $billQty) {
-            $product->setQuantity($prodQty - $billQty);
-            $this->products[] = $product;
+        $key = array_search($product, $this->shop->getProducts());
+        if ($key !== true) {
+            $prodQty = $product->getQuantity();
+            if ($prodQty > 0 && $prodQty >= $billQty) {
+                $product->setQuantity($prodQty - $billQty);
+                $this->products[] = $product;
+            } else {
+                throw new \Exception('<br />Purchase is not allowed, not enough product quantity!');
+            }
         } else {
-            throw new \Exception('Purchase is not allowed, not enough product quantity!');
+            throw new \Exception('<br />Product is not on this store stock!');
         }
     }
 
