@@ -114,18 +114,22 @@ class Bill
     public function printBill()
     {
         if (count($this->getProducts()) > 0) {
-            foreach ($this->getProducts() as $prod)
-            $msg = $this->shop->getType();
-            $msg .= ' - ';
-            $msg .= $prod->getType();
-            $msg .= ' - ';
-            $msg .= $prod->getPrice();
-            $msg .= ' - ';
-            $msg .= $prod->qtyBefore;
-            $msg .= ' - ';
-            $msg .= $prod->getQuantity();
-            Logger::getLogger()->writeLog($msg);
-            echo "<br />".$msg;
+            foreach ($this->getProducts() as $prod) {
+                //Add to array of this store sold products
+                $this->shop->addToReport($prod);
+
+                $msg = $this->shop->getType();
+                $msg .= ' - ';
+                $msg .= $prod->getType();
+                $msg .= ' - ';
+                $msg .= $prod->getPrice();
+                $msg .= ' - ';
+                $msg .= $prod->qtyBefore;
+                $msg .= ' - ';
+                $msg .= $prod->getQuantity();
+                Logger::getLogger()->writeLog($msg);
+                echo "<br />" . $msg;
+            }
         } else {
             throw new \Exception('No products added to bill!');
         }

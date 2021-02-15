@@ -58,6 +58,9 @@ try {
     echo $exception->getMessage();
 }
 
+$checkDate = new DateTime();
+$shopCorner1->reportSoldProducts($checkDate, $checkDate);
+
 $billPharmacy1 = new Bill($customer1, $shopPharmacy1);
 try {
     $billPharmacy1->addProductToBill($shopPharmacy1->getProducts()[0], 9);
@@ -73,6 +76,9 @@ try {
 } catch (Exception $exception) {
     echo $exception->getMessage();
 }
+
+$checkDate = new DateTime();
+$shopSupermarket1->reportSoldProducts($checkDate, $checkDate);
 
 
 
