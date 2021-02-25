@@ -1,0 +1,5 @@
+[25/02/2021 17:59:49]: CornerShop - cigarettes - 100 - 10 - 8
+[25/02/2021 17:59:49]: CornerShop - drink - 50 - 5 - 3
+[25/02/2021 17:59:49]: pharmacy - medicine - 125 - 100 - 91
+[25/02/2021 17:59:49]: pharmacy - drink - 50 - 2 - 0
+[25/02/2021 17:59:49]: supermarket - drink - 150 - 5 - 4

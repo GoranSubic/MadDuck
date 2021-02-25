@@ -56,7 +56,10 @@ class CornerShop extends Shop
      */
     public function addProducts(Product $product): void
     {
-        $this->products[] = $product;
+        if ($product->getType() == 'medicine') {
+//            throw new \Exception('<br />Medicine can be sold only by pharmacies');
+            echo "<br />Can't add product, Medicine can be sold only by pharmacies!";
+        } else $this->products[] = $product;
     }
 
 }

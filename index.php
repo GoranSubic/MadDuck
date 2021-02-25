@@ -25,25 +25,38 @@ $prodParking1 = new ParkingTickets('Parking Zone 1', 50, 100);
 
 //Create a test which consists of a shop of each type, with minimum two products in it.
 $shopCorner1 = new CornerShop('Corner1');
-$shopCorner1->addProducts($prodCigarettes1);
-$shopCorner1->addProducts($prodDrink1);
+try {
+    $shopCorner1->addProducts($prodCigarettes1);
+    $shopCorner1->addProducts($prodDrink1);
+} catch (Exception $exception) {
+    echo $exception->getMessage();
+}
 
 $shopPharmacy1 = new Pharmacy('Pharmacy 1');
-$shopPharmacy1->addProducts($prodMedicine1);
-$shopPharmacy1->addProducts($prodDrink1);
+try {
+    $shopPharmacy1->addProducts($prodMedicine1);
+    $shopPharmacy1->addProducts($prodDrink1);
+} catch (Exception $exception) {
+    echo $exception->getMessage();
+}
 
 $shopSupermarket1 = new Supermarket('Super 1');
-$shopSupermarket1->addProducts($prodCigarettes1);
-$shopSupermarket1->addProducts($prodCigarettes2);
-$shopSupermarket1->addProducts($prodDrink1);
-$shopSupermarket1->addProducts($prodDrink2);
-$shopSupermarket1->addProducts($prodParking1);
+try {
+    $shopSupermarket1->addProducts($prodCigarettes1);
+    $shopSupermarket1->addProducts($prodCigarettes2);
+    $shopSupermarket1->addProducts($prodDrink1);
+    $shopSupermarket1->addProducts($prodDrink2);
+    $shopSupermarket1->addProducts($prodParking1);
+} catch (Exception $exception) {
+    echo $exception->getMessage();
+}
 
 //For each of the stores You should create two bills on the current day.
 $customer1 = new Customer('Mad', 'Duck', '123-456');
 $billCorner1 = new Bill($customer1, $shopCorner1);
 try {
     $billCorner1->addProductToBill($shopCorner1->getProducts()[0], 2);
+    $billCorner1->addProductToBill($shopCorner1->getProducts()[1], 2);
     $billCorner1->printBill();
 } catch (Exception $exception) {
     echo $exception->getMessage();
@@ -52,22 +65,26 @@ try {
 //With the amount greater than the product’s available quantity
 $billCorner1 = new Bill($customer1, $shopCorner1);
 try {
+    $billCorner1->addProductToBill($shopCorner1->getProducts()[1], 1);
     $billCorner1->addProductToBill($shopCorner1->getProducts()[0], 9);
     $billCorner1->printBill();
 } catch (Exception $exception) {
     echo $exception->getMessage();
 }
-
 $checkDate = new DateTime();
 $shopCorner1->reportSoldProducts($checkDate, $checkDate);
 
 $billPharmacy1 = new Bill($customer1, $shopPharmacy1);
 try {
     $billPharmacy1->addProductToBill($shopPharmacy1->getProducts()[0], 9);
+    $billPharmacy1->addProductToBill($shopPharmacy1->getProducts()[1], 2);
     $billPharmacy1->printBill();
 } catch (Exception $exception) {
     echo $exception->getMessage();
 }
+$checkDate = new DateTime();
+$shopPharmacy1->reportSoldProducts($checkDate, $checkDate);
+
 
 $billSuper = new Bill($customer1, $shopSupermarket1);
 try {
@@ -76,7 +93,6 @@ try {
 } catch (Exception $exception) {
     echo $exception->getMessage();
 }
-
 $checkDate = new DateTime();
 $shopSupermarket1->reportSoldProducts($checkDate, $checkDate);
 

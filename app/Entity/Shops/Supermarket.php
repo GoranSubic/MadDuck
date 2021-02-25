@@ -56,7 +56,13 @@ class Supermarket extends Shop
      */
     public function addProducts(Product $product): void
     {
-        $this->products[] = $product;
+        if ($product->getType() == 'medicine') {
+//            throw new \Exception('<br />Medicine can be sold only by pharmacies!');
+            echo "<br />Can't add product, Medicine can be sold only by pharmacies!";
+        } else if ($product->getType() == 'cigarettes') {
+//            throw new \Exception('<br />Cigarettes can be sold only by Corner Shops!');
+            echo "<br />Can't add product, Cigarettes can be sold only by Corner Shops!";
+        } else $this->products[] = $product;
     }
 
 }
