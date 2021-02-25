@@ -127,6 +127,10 @@ class Bill
                 $msg .= $prod->qtyBefore;
                 $msg .= ' - ';
                 $msg .= $prod->getQuantity();
+                if ($prod->getType() == 'medicine' || $prod->getType() == 'parking_tickets') {
+                    $msg .= ' - ';
+                    $msg .= 'Serial Number: '. $prod->getSerialNumber();
+                }
                 Logger::getLogger()->writeLog($msg);
                 echo "<br />" . $msg;
             }
